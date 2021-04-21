@@ -6,7 +6,9 @@ import {
   TextInput,
   View,
   KeyboardAvoidingView,
+  TouchableWithoutFeedback,
   Platform,
+  Keyboard,
 } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import { Button } from "../components/Button";
@@ -43,27 +45,31 @@ export function UserIdentification() {
         style={styles.container}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
-        <View style={styles.content}>
-          <View style={styles.form}>
-            <View style={styles.header}>
-              <Text style={styles.emoji}>{isFilled ? "😀☘️" : "😊"}</Text>
-              <Text style={styles.title}>Como podemos{"\n"} chamar você ?</Text>
-              <TextInput
-                style={[
-                  styles.input,
-                  (isFocused || isFilled) && { borderColor: colors.green },
-                ]}
-                placeholder="Digite seu nome"
-                onBlur={handleInputBlur}
-                onFocus={handleInputFocus}
-                onChangeText={handleInputChangeText}
-              />
-            </View>
-            <View style={styles.footer}>
-              <Button title="confirmar" onPress={handleSubmit} />
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={styles.content}>
+            <View style={styles.form}>
+              <View style={styles.header}>
+                <Text style={styles.emoji}>{isFilled ? "😀☘️" : "😊"}</Text>
+                <Text style={styles.title}>
+                  Como podemos{"\n"} chamar você ?
+                </Text>
+                <TextInput
+                  style={[
+                    styles.input,
+                    (isFocused || isFilled) && { borderColor: colors.green },
+                  ]}
+                  placeholder="Digite seu nome"
+                  onBlur={handleInputBlur}
+                  onFocus={handleInputFocus}
+                  onChangeText={handleInputChangeText}
+                />
+              </View>
+              <View style={styles.footer}>
+                <Button title="confirmar" onPress={handleSubmit} />
+              </View>
             </View>
           </View>
-        </View>
+        </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
