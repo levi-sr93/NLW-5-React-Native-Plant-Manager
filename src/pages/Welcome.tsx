@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Feather } from "@expo/vector-icons";
 
 import {
   View,
@@ -29,7 +30,9 @@ export function Welcome() {
       </Text>
 
       <TouchableOpacity style={styles.button} activeOpacity={0.8}>
-        <Text style={styles.buttonText}>{">"}</Text>
+        <Text style={styles.buttonIcon}>
+          <Feather name="chevron-right" style={styles.buttonIcon} />
+        </Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
@@ -73,8 +76,8 @@ const styles = StyleSheet.create({
     height: 56,
     width: 56,
   },
-  buttonText: {
+  buttonIcon: {
     color: colors.white,
-    fontSize: 24,
+    fontSize: 32,
   },
 });
