@@ -3,7 +3,7 @@
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
-    "server": "json-server ./src/services/server.json --host 192.168.1.105 -w 750 -p 3333",
+    "server": "json-server ./src/services/server.json --host 192.168.1.107 -w 750 -p 3333",
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject"
