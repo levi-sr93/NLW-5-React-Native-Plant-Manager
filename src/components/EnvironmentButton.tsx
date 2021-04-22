@@ -1,7 +1,7 @@
 import React from "react";
 import { RectButton, RectButtonProps } from "react-native-gesture-handler";
 
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, FlatList } from "react-native";
 import colors from "../styles/colors";
 import fonts from "../styles/fonts";
 
@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 12,
+    marginRight: 5,
   },
   containerActive: {
     backgroundColor: colors.green_light,
