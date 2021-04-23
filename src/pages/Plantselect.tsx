@@ -6,10 +6,11 @@ import {
   StyleSheet,
   FlatList,
   ActivityIndicator,
+  Alert,
 } from "react-native";
-import { EnvironmentButton } from "../components/EnvironmentButton";
 
 import { Header } from "../components/Header";
+import { EnvironmentButton } from "../components/EnvironmentButton";
 import { PlantCardPrimary } from "../components/PlantCardPrimary";
 import { Load } from "../components/Loading";
 
@@ -17,6 +18,7 @@ import { api } from "../services/api";
 
 import colors from "../styles/colors";
 import fonts from "../styles/fonts";
+import { useNavigation } from "@react-navigation/core";
 
 interface EnvironmentProps {
   key: string;
@@ -45,7 +47,8 @@ export function PlantSelect() {
 
   const [page, setPage] = useState(1);
   const [loadingMore, setLoadingMore] = useState(false);
-  const [loadedAll, setLoadedAll] = useState(false);
+
+  const navigation = useNavigation();
 
   function handleEnvironmentSelected(environment: string) {
     setEnvironmentSelected(environment);
@@ -66,7 +69,7 @@ export function PlantSelect() {
       params: {
         _sort: "name",
         _order: "asc",
-        _page: 1,
+        _page: page,
         _limit: 8,
       },
     });
@@ -92,6 +95,10 @@ export function PlantSelect() {
     setLoadingMore(true);
     setPage((oldValue) => oldValue + 1);
     fetchPlants();
+  }
+
+  function handlePlantSelect(plant: PlantProps) {
+    navigation.navigate("PlantSave", { plant });
   }
 
   useEffect(() => {
@@ -130,7 +137,7 @@ export function PlantSelect() {
           contentContainerStyle={styles.environmentList}
           horizontal
           data={environment}
-          // keyExtractor={(item) => item.id}
+          keyExtractor={(item) => String(item.key)}
           renderItem={({ item }) => (
             <EnvironmentButton
               title={item.title}
@@ -146,8 +153,15 @@ export function PlantSelect() {
           numColumns={2}
           contentContainerStyle={styles.contentContainerStyle}
           data={filteredPlants}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <PlantCardPrimary data={item} />}
+          keyExtractor={(item) => String(item.id)}
+          renderItem={({ item }) => (
+            <PlantCardPrimary
+              data={item}
+              onPress={() => {
+                handlePlantSelect(item);
+              }}
+            />
+          )}
           onEndReachedThreshold={0.1}
           onEndReached={({ distanceFromEnd }) =>
             handleFetchMore(distanceFromEnd)
