@@ -20,21 +20,19 @@ export function Header() {
   }, []);
 
   return (
-    <SafeAreaView>
-      <View style={styles.container}>
-        <View>
-          <Text style={styles.greeting}>Olá, </Text>
-          <Text style={styles.userName}>{userName}</Text>
-        </View>
-
-        <Image
-          style={styles.image}
-          source={{
-            uri: "https://avatars.githubusercontent.com/u/49613573?v=4",
-          }}
-        />
+    <View style={styles.container}>
+      <View>
+        <Text style={styles.greeting}>Olá, </Text>
+        <Text style={styles.userName}>{userName}</Text>
       </View>
-    </SafeAreaView>
+
+      <Image
+        style={styles.image}
+        source={{
+          uri: "https://avatars.githubusercontent.com/u/49613573?v=4",
+        }}
+      />
+    </View>
   );
 }
 

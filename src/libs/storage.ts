@@ -6,6 +6,7 @@ export interface PlantProps {
   name: string;
   about: string;
   water_tips: string;
+  hour: string;
   photo: string;
   environments: [string];
   frequency: {
