@@ -11,6 +11,7 @@ import waterdrop from "../assets/waterdrop.png";
 
 import colors from "../styles/colors";
 import fonts from "../styles/fonts";
+import { Load } from "../components/Loading";
 
 export function MyPlants() {
   const [myPlants, setMyPlants] = useState<PlantProps[]>([]);
@@ -36,6 +37,10 @@ export function MyPlants() {
     }
     loadStoragedData();
   }, []);
+
+  if (loading) {
+    return <Load />;
+  }
 
   return (
     <View style={styles.container}>
