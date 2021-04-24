@@ -20,7 +20,8 @@ import { Button } from "../components/Button";
 import colors from "../styles/colors";
 import fonts from "../styles/fonts";
 import { format, isBefore } from "date-fns";
-import { PlantProps } from "../libs/storage";
+import { loadPlant, PlantProps, savePlant } from "../libs/storage";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 interface Params {
   plant: PlantProps;
@@ -52,8 +53,21 @@ export function PlantSave() {
     setShowDatePicker((oldState) => !oldState);
   }
 
+  async function handleSave() {
+    const data = await loadPlant();
+    return console.log(data);
+    try {
+      await savePlant({
+        ...plant,
+        dateTimeNotification: selectedDateTime,
+      });
+    } catch (error) {
+      Alert.alert("Não foi possível salvar a plantinha 😭");
+    }
+  }
+
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.plantInfo}>
         <SvgFromUri uri={plant.photo} height={150} width={150} />
         <Text style={styles.plantName}>{plant.name}</Text>
@@ -90,9 +104,9 @@ export function PlantSave() {
           </TouchableOpacity>
         )}
 
-        <Button title="Cadastrar Planta" onPress={() => {}} />
+        <Button title="Cadastrar Planta" onPress={handleSave} />
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -138,11 +152,12 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 20,
     position: "relative",
-    bottom: 65,
+    bottom: 45,
   },
   tipImage: {
     width: 56,
     height: 56,
+    marginTop: 20,
   },
   tipText: {
     flex: 1,
