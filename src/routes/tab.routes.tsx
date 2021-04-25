@@ -4,6 +4,7 @@ import colors from "../styles/colors";
 import { PlantSelect } from "../pages/Plantselect";
 import { MaterialIcons } from "@expo/vector-icons";
 import { MyPlants } from "../pages/MyPlants";
+import { Platform } from "react-native";
 
 const AppTab = createBottomTabNavigator();
 
@@ -17,7 +18,7 @@ const AuthRoutes = () => {
         style: {
           justifyContent: "center",
           alignItems: "center",
-          paddingVertical: 20,
+          paddingVertical: Platform.OS === "ios" ? 15 : 0,
           marginBottom: "auto",
           height: 60,
           borderWidth: 0,
